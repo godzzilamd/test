@@ -11,35 +11,35 @@
 |
 */
 
-Route::get('/', 'PagesController@index');
+Route::get('/', 'UserController@index');
 
-Route::get('/user_list', 'PagesController@user_list');
+Route::get('/users', 'UserController@index');
 
-Route::get('/create_user', 'PagesController@create_user');
+Route::get('users/{user}', 'UserController@show');
 
-Route::post('/create_user_end', 'PagesController@create_user_end');
+Route::middleware('auth:api')->group( function(){
 
-Route::get('/update_user/{id}', 'PagesController@update_user');
+    Route::post('users', 'UserController@store');
 
-Route::post('/update_user_end/{id}', 'PagesController@update_user_end');
+    Route::put('users/{user}', 'UserController@update');
 
-Route::get('/delete_user', 'PagesController@delete_user');
+    Route::delete('users/{user}', 'UserController@destroy');
 
-Route::get('/delete_user_end/{id}', 'PagesController@delete_user_end');
+});
 
-Route::get('/user_group_list', 'UserGroupController@user_group_list');
+Route::get('groups', 'GroupsController@index');
 
-Route::get('/create_user_group', 'UserGroupController@create_user_group');
+Route::get('groups/{group}', 'GroupsController@show');
 
-Route::post('/create_user_group_end', 'UserGroupController@create_user_group_end');
+Route::middleware('auth:api')->group( function(){
 
-Route::get('/update_user_group/{id}', 'UserGroupController@update_user_group');
+    Route::post('groups', 'GroupsController@store');
 
-Route::post('/update_user_group_end/{id}', 'UserGroupController@update_user_group_end');
+    Route::put('groups/{group}', 'GroupsController@update');
 
-Route::get('/delete_user_group', 'UserGroupController@delete_user_group');
+    Route::delete('groups/{group}', 'GroupsController@destroy');
 
-Route::get('/delete_user_group_end/{id}', 'UserGroupController@delete_user_group_end');
+});
 
 Auth::routes();
 

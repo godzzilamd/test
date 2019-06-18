@@ -14,7 +14,7 @@ class Groups extends Migration
     public function up()
     {
         Schema::create('groups', function (Blueprint $table) {
-            $table->bigIncrements('group_id');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->integer('rights');
             $table->timestamps();

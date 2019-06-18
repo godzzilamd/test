@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Groups extends Migration
+class Forusers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class Groups extends Migration
      */
     public function up()
     {
-        Schema::create('groups', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->integer('rights');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->renameColumn('remember_token', 'api_token');
         });
     }
 
@@ -28,6 +25,8 @@ class Groups extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('groups');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 }

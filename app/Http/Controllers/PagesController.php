@@ -12,7 +12,7 @@ class PagesController extends Controller
 {
     public function __construct() {
         $this->middleware('auth');
-    }
+    }   
 
     public function index() {
         return view('pages.index');
@@ -34,13 +34,16 @@ class PagesController extends Controller
         return view('pages.user_list')->with(compact(['users', 'auth_user']));
     } 
 
-    public function create_user() {
-        return view('pages.create_user');
+    public function create() {
+        // return view('pages.create_user');
+        return response()->json(['user'=>$user]);
     } 
 
     public function create_user_end(Request $request) {
 
         //make a individual auth user array using join
+        User::find(1);
+
         $auth_user = DB::table('users')
         ->join('groups', 'users.group_id', '=', 'groups.group_id')
         ->select('users.id', 'users.name', 'groups.rights')

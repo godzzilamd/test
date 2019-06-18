@@ -40,6 +40,6 @@ class User extends Authenticatable
     ];
 
     public function user() {
-        return $this->belongsTo('App\Groups');
+        return $this->belongsTo('App\Groups');//todo laravel models relationship one to many, many to many.
     }
 }

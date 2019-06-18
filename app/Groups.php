@@ -8,9 +8,11 @@ class Groups extends Model
 {
     //
 
-    protected $table = 'groups';
+    protected $fillable = [
+        'name', 'rights',
+    ];
 
-    public $primaryKey = 'group_id';
+    protected $table = 'groups';
 
     public function groups() {
         return $this->hasMany('App\User');

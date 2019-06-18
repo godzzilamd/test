@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
                 'blocat' => '0',
                 'email' => 'godzzilamd@mail.ru',
                 'password' => bcrypt('admin'),
+                'api_token' => Str::random(60)
             ],
             [
                 'name' => 'Doge',
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
                 'blocat' => '0',
                 'email' => 'someemail@mail.ru',
                 'password' => bcrypt('user'),
+                'api_token' => Str::random(60)
             ]
             ]);
 

@@ -71,9 +71,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
-
-        $user = App\User::withTrashed()
+        $user = User::withTrashed()
                 ->where('id', $user->id)
                 ->get();
 

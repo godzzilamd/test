@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\User_storage;
+use App\Http\Requests\User_update;
 
 class UserController extends Controller
-{
+{   
     /**
      * Display a listing of the resource.
      *
@@ -20,22 +22,12 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(User_storage $request)
     {
         $user = User::create($request->all());
 
@@ -50,18 +42,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     { 
-        return $user;
-    }
+        $user = User::where('id', $user->id)->with('group')->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
+        return response()->json($user);
     }
 
     /**
@@ -71,8 +54,10 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(User_update $request, User $user)
     {
+        //$user->groups()->attach($request->input('groups'));
+
         $user->update($request->all());
 
         return response()->json($user);
@@ -87,6 +72,10 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+
+        $user = App\User::withTrashed()
+                ->where('id', $user->id)
+                ->get();
 
         return response()->json(null, 204);
     }

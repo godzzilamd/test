@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => 'Mishanea',
-                'group_id' => '1',
                 'blocat' => '0',
                 'email' => 'godzzilamd@mail.ru',
                 'password' => bcrypt('admin'),
@@ -23,7 +22,6 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Doge',
-                'group_id' => '2',
                 'blocat' => '0',
                 'email' => 'someemail@mail.ru',
                 'password' => bcrypt('user'),
@@ -39,6 +37,10 @@ class DatabaseSeeder extends Seeder
             [
                 'name' => 'new',
                 'rights' => '1'
+            ],
+            [
+                'name' => 'group3',
+                'rights' => '5'
             ]
         ]);
     }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Groups extends Migration
+class Repair extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class Groups extends Migration
      */
     public function up()
     {
-        Schema::create('groups', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->integer('rights');
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('user_groups', function (Blueprint $table) {
+            $table->dropColumn(['created_at', 'updated_at']);
         });
     }
 
@@ -29,6 +25,6 @@ class Groups extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('groups');
+        //
     }
 }

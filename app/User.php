@@ -4,11 +4,13 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -39,7 +41,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function user() {
-        return $this->belongsTo('App\Groups');//todo laravel models relationship one to many, many to many.
+    // public function user() {
+    //     return $this->belongsTo('App\Groups');//todo laravel models relationship one to many, many to many.
+    // }
+
+    public function group()
+    {
+        return $this->belongsToMany(Group::class, 'user_groups', 'user_id', 'group_id');
     }
 }

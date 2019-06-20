@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Groups;
+use App\Group;
 use Illuminate\Http\Request;
+use App\Http\Requests\Group_storage;
+use App\Http\Requests\Group_update;
 
 class GroupsController extends Controller
 {
@@ -14,19 +16,9 @@ class GroupsController extends Controller
      */
     public function index()
     {
-        $users = Groups::all();
+        $groups = Group::all();
 
-        return response()->json(['users' => $users]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($groups);
     }
 
     /**
@@ -35,9 +27,9 @@ class GroupsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Group_storage $request)
     {
-        $group = Groups::create($request->all());
+        $group = Group::create($request->all());
 
         return response()->json($group, 201);
     }
@@ -45,23 +37,14 @@ class GroupsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Groups  $groups
+     * @param  \App\Group  $groups
      * @return \Illuminate\Http\Response
      */
     public function show(Groups $group)
     {
-        return $group;
-    }
+        $group = Group::where('id', $group->id)->with('user')->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Groups  $groups
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Groups $groups)
-    {
-        //
+        return response()->json($group);
     }
 
     /**
@@ -71,11 +54,13 @@ class GroupsController extends Controller
      * @param  \App\Groups  $groups
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Groups $group)
+    public function update(Group_update $request, Groups $group)
     {
+        //$group->user()->attach($request->input('users'));
+
         $group->update($request->all());
 
-        return response()->json([$group, 'here'], 200);
+        return response()->json($group);
     }
 
     /**

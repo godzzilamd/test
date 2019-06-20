@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'UserController@index');
+Route::get('/', 'UserController@test');
 
 Route::get('/users', 'UserController@index');
 

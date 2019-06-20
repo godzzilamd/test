@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Groups;
 use Illuminate\Http\Request;
+use App\Http\Requests\Groups_storage;
 
 class GroupsController extends Controller
 {
@@ -16,7 +17,7 @@ class GroupsController extends Controller
     {
         $users = Groups::all();
 
-        return response()->json(['users' => $users]);
+        return response()->json($users);
     }
 
     /**
@@ -35,7 +36,7 @@ class GroupsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Groups_storage $request)
     {
         $group = Groups::create($request->all());
 
@@ -50,7 +51,9 @@ class GroupsController extends Controller
      */
     public function show(Groups $group)
     {
-        return $group;
+        $group = Groups::where('id', $group->id)->with('user')->first();
+
+        return response()->json($group);
     }
 
     /**
@@ -73,9 +76,11 @@ class GroupsController extends Controller
      */
     public function update(Request $request, Groups $group)
     {
+        //$group->user()->attach($request->input('users'));
+
         $group->update($request->all());
 
-        return response()->json([$group, 'here'], 200);
+        return response()->json($group);
     }
 
     /**

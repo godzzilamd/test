@@ -39,7 +39,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function user() {
-        return $this->belongsTo('App\Groups');//todo laravel models relationship one to many, many to many.
+    // public function user() {
+    //     return $this->belongsTo('App\Groups');//todo laravel models relationship one to many, many to many.
+    // }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Groups::class, 'user_groups', 'user_id', 'group_id');
+        //return $this->belongsToMany(Groups::class, 'user_groups');
     }
 }

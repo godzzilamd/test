@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\User_storage;
 
 class UserController extends Controller
-{
+{   public function test()
+    {
+        $user = User::where('id', auth()->user()->id);
+
+        return response()->json($user);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +41,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(User_storage $request)
     {
         $user = User::create($request->all());
 
@@ -50,7 +56,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     { 
-        return $user;
+        $user = User::where('id', $user->id)->with('groups')->first();
+
+        return response()->json($user);
     }
 
     /**
@@ -73,6 +81,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        //$user->groups()->attach($request->input('groups'));
+
         $user->update($request->all());
 
         return response()->json($user);

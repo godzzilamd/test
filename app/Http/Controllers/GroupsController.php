@@ -71,7 +71,9 @@ class GroupsController extends Controller
      */
     public function destroy(Groups $group)
     {
-        $group->delete();
+        $group = Group::withTrashed()
+                ->where('id', $group->id)
+                ->get();
 
         return response()->json(null, 204);
     }

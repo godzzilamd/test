@@ -31,4 +31,13 @@ class User_storage extends FormRequest
             'confirm_password' => 'same:password'
         ];
     }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+           if ($this->input('password') == 'asdasdasd') {
+                $validator->errors()->add('field', 'Something is wrong with this field!');
+            }
+        });
+    }   
 }

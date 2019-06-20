@@ -56,7 +56,6 @@ class UserController extends Controller
      */
     public function update(User_update $request, User $user)
     {
-        //$user->groups()->attach($request->input('groups'));
 
         $user->update($request->all());
 

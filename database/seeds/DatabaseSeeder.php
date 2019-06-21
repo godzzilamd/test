@@ -31,16 +31,13 @@ class DatabaseSeeder extends Seeder
 
         DB::table('groups')->insert([
             [
-                'name' => 'admins',
-                'rights' => '10'
+                'name' => 'admins'
             ],
             [
-                'name' => 'new',
-                'rights' => '1'
+                'name' => 'new'
             ],
             [
-                'name' => 'group3',
-                'rights' => '5'
+                'name' => 'group3'
             ]
         ]);
 

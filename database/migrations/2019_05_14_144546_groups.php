@@ -16,7 +16,6 @@ class Groups extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->integer('rights');
             $table->softDeletes();
             $table->timestamps();
         });

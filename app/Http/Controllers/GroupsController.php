@@ -40,9 +40,9 @@ class GroupsController extends Controller
      * @param  \App\Group  $groups
      * @return \Illuminate\Http\Response
      */
-    public function show(Groups $group)
+    public function show(Group $group)
     {
-        $group = Group::where('id', $group->id)->with('user')->first();
+        $group = Group::where('id', $group->id)->with('users')->first();
 
         return response()->json($group);
     }
@@ -69,11 +69,9 @@ class GroupsController extends Controller
      * @param  \App\Groups  $groups
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Groups $group)
+    public function destroy(Group $group)
     {
-        $group = Group::withTrashed()
-                ->where('id', $group->id)
-                ->get();
+        $group->delete();
 
         return response()->json(null, 204);
     }

@@ -24,8 +24,7 @@ class Groups_storage extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:groups|max:100',
-            'rights' => 'required|numeric|between:1,10',
+            'name' => 'required|unique:groups|max:100'
         ];
     }
 }

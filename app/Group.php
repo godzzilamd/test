@@ -17,12 +17,12 @@ class Group extends Model
     //     return $this->hasMany('App\User');
     // }
 
-    public function user()
+    public function users()
     {
         return $this->belongsToMany(User::class, 'user_groups', 'user_id', 'group_id');
     }
 
-    public function permission()
+    public function permissions()
     {
         return $this->belongsToMany(Permission::class, 'groups_permissions', 'group_id', 'permission_id');
     }

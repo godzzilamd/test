@@ -13,7 +13,7 @@ class Group_update extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,8 +24,7 @@ class Group_update extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'unique:groups|max:100',
-            'rights' => 'numeric|between:1,10',
+            'name' => 'unique:groups|max:100'
         ];
     }
 }

@@ -3,12 +3,50 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Group;
 use Illuminate\Http\Request;
 use App\Http\Requests\User_storage;
 use App\Http\Requests\User_update;
+use App\Permission;
 
 class UserController extends Controller
 {   
+    public function test()
+    {
+        $user = User::find(1);
+
+        //$group = Group::find(2);  
+
+        //$group->permissions()->attach([5, 6, 7]);
+
+        //$user->group()->attach([1,2]);
+
+        //$user = Group::has('user')->with('user')->get();
+
+        // $rights = User::has('group')
+        //     ->has('permission')
+        //     ->where('user.user_id', 1)
+        //     ->with('group')
+        //     ->with('permission')
+        //     ->get();
+
+        // $group = Permission::whereHas('group', function ($q) use ($group) {
+        //     $q->where('user_id', 1);
+        // })->with('group')->pluck('name');
+
+        // $group = Group::whereHas('users', function ($q) {
+        //     $q->where('user_id', 1); })->get();
+        // })->whereHas('permissions', function ($q) {
+        //     //$q->where('name', '');
+        // })->with('permissions')->get();
+
+        // $group = Group::where('user_id', 1)->get();
+
+        // return $group;
+
+        return $user->groups[0]->permissions->pluck('name');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +80,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     { 
-        $user = User::where('id', $user->id)->with('group')->first();
+        $user = User::where('id', $user->id)->with('groups')->first();
 
         return response()->json($user);
     }
@@ -70,9 +108,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user = User::withTrashed()
-                ->where('id', $user->id)
-                ->get();
+        $user->delete();
 
         return response()->json(null, 204);
     }

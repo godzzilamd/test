@@ -32,12 +32,12 @@ class User_storage extends FormRequest
         ];
     }
 
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-           if ($this->input('password') == 'asdasdasd') {
-                $validator->errors()->add('field', 'Something is wrong with this field!');
-            }
-        });
-    }   
+    // public function withValidator($validator)
+    // {
+    //     $validator->after(function ($validator) {
+    //        if ($this->input('password') == 'asdasdasd') {
+    //             $validator->errors()->add('field', 'Something is wrong with this field!');
+    //         }
+    //     });
+    // }   
 }

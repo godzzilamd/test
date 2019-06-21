@@ -45,8 +45,13 @@ class User extends Authenticatable
     //     return $this->belongsTo('App\Groups');//todo laravel models relationship one to many, many to many.
     // }
 
-    public function group()
+    public function groups()
     {
         return $this->belongsToMany(Group::class, 'user_groups', 'user_id', 'group_id');
     }
+
+    // public function permission()
+    // {
+    //     return $this->hasManyThrough('App\Permission', 'App\Group');
+    // }
 }
